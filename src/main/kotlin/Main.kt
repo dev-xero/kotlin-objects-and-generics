@@ -27,19 +27,19 @@ class Quiz: ProgressPrintable {
         println(progressText)
     }
 
-    val q1 = Question<String>(
+    val question1 = Question<String>(
         question = "Quoth the raven ___",
         answer = "nevermore",
         difficulty = Difficulties.MEDIUM
     )
 
-    val q2 = Question<Boolean>(
-        question = "",
+    val question2 = Question<Boolean>(
+        question = "The sky is green. True or false",
         answer = true,
         difficulty = Difficulties.EASY
     )
 
-    val q3 = Question<Int>(
+    val question3 = Question<Int>(
         question = "How many days are there between full moons?",
         answer = 28,
         difficulty = Difficulties.HARD
@@ -50,9 +50,40 @@ class Quiz: ProgressPrintable {
         const val answered = 3
     }
 
+    fun printQuiz() {
+        // scope functions
+        question1.let {
+            println(it.question)
+            println(it.answer)
+            println(it.difficulty)
+        }
+
+        println()
+
+        question2.let {
+            println(it.question)
+            println(it.answer)
+            println(it.difficulty)
+        }
+
+        println()
+
+        question3.let {
+            println(it.question)
+            println(it.answer)
+            println(it.difficulty)
+        }
+
+        println()
+    }
+
 }
 
 
 fun main() {
-    Quiz().printProgressBar()
+    // scope function 'apply'
+    Quiz().apply {
+        printQuiz()
+        printProgressBar()
+    }
 }
