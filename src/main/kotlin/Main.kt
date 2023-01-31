@@ -10,7 +10,23 @@ data class Question<T> (
     val difficulty: Difficulties
 )
 
-class Quiz {
+interface ProgressPrintable {
+    val progressText: String
+
+    fun printProgressBar()
+}
+
+class Quiz: ProgressPrintable {
+    override val progressText: String
+        get() = "$answered of $total answered"
+
+    override fun printProgressBar() {
+        repeat(Quiz.answered) { print("▓") }
+        repeat(total - answered) { print("▒") }
+        println()
+        println(progressText)
+    }
+
     val q1 = Question<String>(
         question = "Quoth the raven ___",
         answer = "nevermore",
@@ -36,19 +52,7 @@ class Quiz {
 
 }
 
-// This is an extension property
-val Quiz.StudentProgress.progressText: String
-    get() = "$answered of $total answered"
-
-// This is an extension function
-fun Quiz.StudentProgress.printProgressBar() {
-    repeat(Quiz.answered) { print("▓") }
-    repeat(Quiz.total - Quiz.answered) { print("▒") }
-    println()
-    println(Quiz.progressText)
-}
-
 
 fun main() {
-    Quiz.printProgressBar()
+    Quiz().printProgressBar()
 }
